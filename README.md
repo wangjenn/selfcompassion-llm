@@ -2,7 +2,7 @@
 
 ## 🚀 Quickstart
 
-Clone the repo and install dependencies:
+### Clone the repo and install dependencies:
 
 ```bash
 git clone https://github.com/<your-username>/selfcompassion-llm.git
@@ -10,13 +10,13 @@ cd selfcompassion-llm
 pip install -r requirements.txt
 ```
 
-Run ingestion to build the index:
+### Run ingestion to build the index:
 
 ```bash
 python ingestion.py
 ```
 
-Launch the Streamlit app:
+### Launch the Streamlit app:
 
 ```bash
 streamlit run streamlit_app.py
@@ -69,7 +69,8 @@ streamlit run monitor.py
 
 - Deterministic ingestion pipeline (`ingestion.py`)  
 - `requirements.txt` provided for environment setup  
-- Docker + docker-compose included for containerized runs  
+- Docker + docker-compose included for containerized runs
+- Repo includes a small demo dataset (`processed_documents_clean.json`) so you can immediately run the app and test its functionality.
 
 ---
 
