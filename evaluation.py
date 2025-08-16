@@ -35,7 +35,8 @@ def calculate_recall_at_k(retrieved_ids: List[str], relevant_ids: List[str], k: 
     relevant_retrieved = sum(1 for doc_id in retrieved_k if doc_id in relevant_ids)
     return relevant_retrieved / len(relevant_ids) if relevant_ids else 0
 
-def evaluate_system(search_fn, ground_truth_path: str = "ground_truth.json", k: int = 10):
+
+def evaluate_system(search_fn, ground_truth_path: str = "data/golden/golden_set.json", k: int = 10):
     """
     Evaluate a search function against ground truth
     Returns dict with hit_rate, mrr, precision@k, recall@k
