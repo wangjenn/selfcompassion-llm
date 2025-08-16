@@ -1,7 +1,7 @@
 # Self-Compassion LLM for Neurodiverse Brains 🧠
 
 ## 💕 LIVE DEMO
-- [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
+- Try out the **deployed app** (no setup required) 👉🏻 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
 
 ---
 
