@@ -1,9 +1,4 @@
-.venv
-__pycache__
-.DS_Store
-logs/*
-
-# python
+# Python
 __pycache__/
 *.pyc
 *.pyo
@@ -12,37 +7,30 @@ __pycache__/
 .venv/
 .env
 
-# data / notebooks / caches
-data/
-*.pdf
-*.ipynb
-logs/
-.DS_Store
-
-# git / OS
-.git/
-.gitignore
-*.log
-
-# node/npm if any
-node_modules/
-
-# pdf 
-data/
-raw/
-*.pdf
-
-__pycache__/
-*.pyc
-.git
-.gitignore
+# Data / Notebooks / Caches
 data/
 data_raw/
+raw/
+*.npy
+*.pkl
+*.faiss
+*.ipynb
+*.ipynb_checkpoints/
 *.pdf
 *.pptx
 *.docx
 *.zip
-node_modules/
 logs/
-*.ipynb_checkpoints
+*.log
+
+# Git / OS
+.git/
+.gitignore
 .DS_Store
+
+# Node/npm (if any)
+node_modules/
+
+# Project-specific
+embeddings.npy
+id_index.json
