@@ -1,0 +1,48 @@
+.venv
+__pycache__
+.DS_Store
+logs/*
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+.env
+
+# data / notebooks / caches
+data/
+*.pdf
+*.ipynb
+logs/
+.DS_Store
+
+# git / OS
+.git/
+.gitignore
+*.log
+
+# node/npm if any
+node_modules/
+
+# pdf 
+data/
+raw/
+*.pdf
+
+__pycache__/
+*.pyc
+.git
+.gitignore
+data/
+data_raw/
+*.pdf
+*.pptx
+*.docx
+*.zip
+node_modules/
+logs/
+*.ipynb_checkpoints
+.DS_Store
