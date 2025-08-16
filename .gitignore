@@ -3,28 +3,27 @@
 .env.*
 *.env
 
+# Virtual environments
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
 # Jupyter
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Data files (if large)
+# Data / embeddings (regenerable or large)
 *.pkl
 *.faiss
 *.npy
+id_index.json
+embeddings.npy
+.embeddings/
 
 # Logs
 logs/
 *.log
-
-.venv/
-.env
-__pycache__/
-*.pyc
-.embeddings/
-embeddings.npy
-id_index.json
