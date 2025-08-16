@@ -52,16 +52,43 @@ selfcompassion-llm/
 
 ## 📊 Monitoring
 
-**A separate monitoring page (`monitor.py`) tracks:**
+- **A separate monitoring page (`monitor.py`) tracks:**
 
-- Sources per answer  
-- Feedback breakdown  
-- Query rewriting usage  
+  - Sources per answer  
+  - Feedback breakdown  
+  - Query rewriting usage  
 
-**Run it with:**
+- **Run it with:**
 
 ```bash
 streamlit run monitor.py
+```
+
+---
+
+## 📊 Evaluation Results
+
+- The Self-Compassion RAG system was evaluated on a golden dataset of 20 queries with labeled relevant documents.
+
+### Performance Metrics
+
+| Retrieval Method | Hit Rate | MRR   | Precision@10 | Recall@10 |
+|------------------|----------|-------|--------------|-----------|
+| **BM25**         | 1.000    | 0.598 | 0.100        | 1.000     |
+| **Vector**       | 0.900    | 0.410 | 0.090        | 0.900     |
+| **TF-IDF**       | 0.900    | 0.410 | 0.090        | 0.900     |
+| **Hybrid**       | 0.950    | 0.520 | 0.095        | 0.950     |
+
+### Key Findings
+- **BM25** consistently achieves perfect hit rate and recall in this dataset, with the best MRR (0.598), ranking relevant documents higher.
+- **Hybrid** slightly improves over pure TF-IDF and Vector, balancing precision and recall.
+- **Vector** and **TF-IDF** show similar performance, with lower MRR than BM25 but decent recall.
+- **BM25** emerges as the most reliable retriever under current conditions.
+
+### Running Evaluation
+
+```bash
+python evaluation.py
 ```
 
 ---
