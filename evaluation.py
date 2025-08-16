@@ -73,18 +73,90 @@ class BM25Retriever:
         return out
 
 # -------------------------------
-# ONLINE: Vector (OpenAI embeddings)
+# ONLINE: Vector (OpenAI embeddings)-- default is TF-IDF if no API key
+
 class VectorRetriever:
-    def __init__(self, docs: List[Dict], model: str = "text-embedding-3-small", client=None):
-            self.docs = docs
-            self.model = model
-            self.client = client
-            self.online = client is not None  # ONLINE if you pass an OpenAI client
-            # self._build_offline_tfidf()
-            self.online = False
-            if self.online:
-                self._embed_texts() # Load embeddings if online
-    
+    """
+    Uses OpenAI embeddings if OPENAI_API_KEY is set; else falls back to offline TF-IDF.
+    """
+    def __init__(self, docs: List[Dict], model: str = "text-embedding-3-small"):
+        self.docs = docs
+        self.model = model
+
+        api_key = os.getenv("OPENAI_API_KEY", "").strip()
+        self.client = OpenAI(api_key=api_key) if api_key else None
+        self.online = self.client is not None
+
+        if self.online:
+            # Pre-embed documents once (kept in memory; small corpus is fine)
+            texts = [d.get("text", "") for d in self.docs]
+            embs = []
+            B = 128
+            for i in range(0, len(texts), B):
+                batch = texts[i:i+B]
+                resp = self.client.embeddings.create(model=self.model, input=batch)
+                embs.extend([np.array(e.embedding, dtype=np.float32) for e in resp.data])
+            self.doc_embs = self._l2(np.vstack(embs).astype(np.float32))
+        else:
+            # Offline proxy = TF-IDF (so eval runs without network/keys)
+            self._build_offline_tfidf()
+
+    # ----- shared helpers -----
+    @staticmethod
+    def _l2(mat: np.ndarray, eps=1e-8) -> np.ndarray:
+        norms = np.linalg.norm(mat, axis=1, keepdims=True) + eps
+        return mat / norms
+
+    def _build_offline_tfidf(self):
+        # tiny TF-IDF impl (same idea as your TfidfRetriever)
+        tok_docs = [preprocess_text(d.get("text", "")) for d in self.docs]
+        vocab = {}
+        for toks in tok_docs:
+            for t in set(toks):
+                vocab[t] = vocab.get(t, 0) + 1
+        self.vocab = {t:i for i, t in enumerate(sorted(vocab))}
+        N = len(tok_docs)
+        idf = np.zeros(len(self.vocab), dtype=np.float32)
+        for t, i in self.vocab.items():
+            df = vocab.get(t, 0)
+            idf[i] = np.log((N + 1) / (df + 1)) + 1.0
+        self.idf = idf
+
+        def tfidf_vec(toks: List[str]) -> np.ndarray:
+            v = np.zeros(len(self.vocab), dtype=np.float32)
+            for t in toks:
+                idx = self.vocab.get(t)
+                if idx is not None:
+                    v[idx] += 1.0
+            if v.sum() > 0:
+                v = v / v.sum()
+            return v * self.idf
+
+        self._tfidf_vec = tfidf_vec
+        self.doc_vecs = np.vstack([tfidf_vec(t) for t in tok_docs]).astype(np.float32)
+        self.doc_embs = self._l2(self.doc_vecs)
+
+    # ----- the actual search -----
+    def search(self, query: str, k: int = 10) -> List[Dict]:
+        if self.online:
+            # real embedding
+            resp = self.client.embeddings.create(model=self.model, input=[query])
+            q = np.array(resp.data[0].embedding, dtype=np.float32)
+            q = q / (np.linalg.norm(q) + 1e-8)
+        else:
+            # offline proxy
+            q = self._tfidf_vec(preprocess_text(query))
+            q = q / (np.linalg.norm(q) + 1e-8)
+
+        sims = self.doc_embs @ q
+        idx = np.argsort(sims)[::-1][:k]
+        out = []
+        for i in idx:
+            d = dict(self.docs[i])
+            d["_vector"] = float(sims[i])
+            out.append(d)
+        return out
+
 # -------------------------------
 # OFFLINE: TF-IDF (pure NumPy) retriever-- if no vector index available
 # -------------------------------
@@ -266,6 +338,7 @@ def main():
     def tfidf_fn(q, k=args.k): return tfidf_ret.search(q, k=k)
     def hybrid_fn(q, k=args.k):
         b = bm25_ret.search(q, k=k*3)   # wider pool for fusion
+        v = vect_ret.search(q, k=k*3)
         t = tfidf_ret.search(q, k=k*3)
         return fuse_lists(b, t, k=k)
 
