@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Who is Kristin Neff and what is fierce self-compassion?",
+    "gold_ids": ["b87383933a", "671696024e"]
+  },
+  {
+    "question": "What are the main ideas from the book Fierce Compassion?",
+    "gold_ids": ["694cfb51ea", "24dec8b4eb"]
+  },
+  {
+    "question": "What role does self-kindness play in Kristin Neff's work?",
+    "gold_ids": ["47e74cdad4"]
+  },
+  {
+    "question": "What does research say about self-compassion for neurodiverse people?",
+    "gold_ids": ["d9f77ff321", "a81e67e4bb"]
+  },
+  {
+    "question": "How does self-compassion differ from self-esteem?",
+    "gold_ids": ["d26fcd8712"]
+  }
+]
