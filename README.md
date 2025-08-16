@@ -41,7 +41,7 @@ selfcompassion-llm/
 
 ---
 
-## 🧠 Features
+## 💡 Features
 
 - Retrieval-Augmented Generation (RAG) pipeline  
 - Query rewriting + document re-ranking  
