@@ -1,0 +1,30 @@
+# Environment variables
+.env
+.env.*
+*.env
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Data files (if large)
+*.pkl
+*.faiss
+*.npy
+
+# Logs
+logs/
+*.log
+
+.venv/
+.env
+__pycache__/
+*.pyc
+.embeddings/
+embeddings.npy
+id_index.json
