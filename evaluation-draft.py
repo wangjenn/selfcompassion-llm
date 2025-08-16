@@ -7,7 +7,7 @@ import numpy as np
 from typing import List, Dict
 from pathlib import Path
 
-def load_ground_truth(path: str = "data/golden/golden_set.json") -> List[Dict]:
+def load_ground_truth(path: str = "data/golden/golden_set.json") -> List[Dict]:e
     """Load ground truth Q&A pairs"""
     with open(path, 'r') as f:
         return json.load(f)

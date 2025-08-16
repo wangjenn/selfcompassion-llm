@@ -1,22 +1,122 @@
 [
   {
-    "question": "Who is Kristin Neff and what is fierce self-compassion?",
-    "gold_ids": ["b87383933a", "671696024e"]
+    "question": "response warning sign for rumination Previous",
+    "gold_ids": [
+      "07c2e49412"
+    ]
   },
   {
-    "question": "What are the main ideas from the book Fierce Compassion?",
-    "gold_ids": ["694cfb51ea", "24dec8b4eb"]
+    "question": "predestined some way and thus there",
+    "gold_ids": [
+      "d2747dde39"
+    ]
   },
   {
-    "question": "What role does self-kindness play in Kristin Neff's work?",
-    "gold_ids": ["47e74cdad4"]
+    "question": "empirical data validate the scale After",
+    "gold_ids": [
+      "5df7f4fab8"
+    ]
   },
   {
-    "question": "What does research say about self-compassion for neurodiverse people?",
-    "gold_ids": ["d9f77ff321", "a81e67e4bb"]
+    "question": "incredible freedom because means don have",
+    "gold_ids": [
+      "b82a55696a"
+    ]
   },
   {
-    "question": "How does self-compassion differ from self-esteem?",
-    "gold_ids": ["d26fcd8712"]
+    "question": "kind thing life supposed about except",
+    "gold_ids": [
+      "e13f00992b"
+    ]
+  },
+  {
+    "question": "able accept our mistakes and learn",
+    "gold_ids": [
+      "68d0155258"
+    ]
+  },
+  {
+    "question": "her fist her heart embodying her",
+    "gold_ids": [
+      "a9e36c6390"
+    ]
+  },
+  {
+    "question": "next moment won okay this moment",
+    "gold_ids": [
+      "ed0bde582d"
+    ]
+  },
+  {
+    "question": "causes and conditions that led you",
+    "gold_ids": [
+      "f70e49c290"
+    ]
+  },
+  {
+    "question": "deeply accepted Great freedom lies fearlessly",
+    "gold_ids": [
+      "8389555b7d"
+    ]
+  },
+  {
+    "question": "soothing and sometimes means figuring out",
+    "gold_ids": [
+      "b2c19f4983"
+    ]
+  },
+  {
+    "question": "can save ourselves from lot unwarranted",
+    "gold_ids": [
+      "0beb88c6de"
+    ]
+  },
+  {
+    "question": "regrets about your lifeignoring your children",
+    "gold_ids": [
+      "c7a5b5971c"
+    ]
+  },
+  {
+    "question": "enough hours the day She chose",
+    "gold_ids": [
+      "2a565c8252"
+    ]
+  },
+  {
+    "question": "Anna Functional analysis rumination 133 antecedents",
+    "gold_ids": [
+      "5aaab160d0"
+    ]
+  },
+  {
+    "question": "and uncomfortable new routines can feel",
+    "gold_ids": [
+      "2bd1babc74"
+    ]
+  },
+  {
+    "question": "damage caused their sense self With",
+    "gold_ids": [
+      "319e6c35c1"
+    ]
+  },
+  {
+    "question": "the full force rage allowed the",
+    "gold_ids": [
+      "b72e6d64b8"
+    ]
+  },
+  {
+    "question": "breakup didn adversely impact him Although",
+    "gold_ids": [
+      "538b262c6c"
+    ]
+  },
+  {
+    "question": "might come short Although this sense",
+    "gold_ids": [
+      "ed5a0cf4e3"
+    ]
   }
 ]
