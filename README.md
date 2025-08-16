@@ -2,7 +2,7 @@
 
 ## 🚀 Quickstart
 
-**Clone the repo and install dependencies:**
+- **Clone the repo and install dependencies:**
 
 ```bash
 git clone https://github.com/<your-username>/selfcompassion-llm.git
@@ -10,13 +10,13 @@ cd selfcompassion-llm
 pip install -r requirements.txt
 ```
 
-**Run ingestion to build the index:**
+- **Run ingestion to build the index:**
 
 ```bash
 python ingestion.py
 ```
 
-**Launch the Streamlit app:**
+- **Launch the Streamlit app:**
 
 ```bash
 streamlit run streamlit_app.py
@@ -52,7 +52,7 @@ selfcompassion-llm/
 
 ## 📊 Monitoring
 
-**A separate monitoring page (`monitor.py`) tracks:  **
+**A separate monitoring page (`monitor.py`) tracks:**
 
 - Sources per answer  
 - Feedback breakdown  
