@@ -34,6 +34,7 @@ selfcompassion-llm/
 ├── monitor.py              # simple monitoring dashboard
 ├── docker-compose.yml      # optional Docker setup
 ├── Dockerfile
+├── processed_documents_clean.json  # demo dataset
 ├── requirements.txt
 └── notebooks/              # (optional) exploration notebooks
 ```
@@ -57,7 +58,7 @@ A separate monitoring page (`monitor.py`) tracks:
 - Feedback breakdown  
 - Query rewriting usage  
 
-Run it with:
+**Run it with:**
 
 ```bash
 streamlit run monitor.py
@@ -65,12 +66,17 @@ streamlit run monitor.py
 
 ---
 
-## ⚡ Reproducibility
+## ⚡ Data & Reproducibility
 
 - Deterministic ingestion pipeline (`ingestion.py`)  
 - `requirements.txt` provided for environment setup  
 - Docker + docker-compose included for containerized runs
-- Repo includes a small demo dataset (`processed_documents_clean.json`) so you can immediately run the app and test its functionality.
+- Repo includes a small demo dataset (`processed_documents_clean.json`) to immediately run the app and test its functionality.
+- To rebuild the larger embedding index files locally, run:
+  
+  ```bash
+  make ingest
+  ```
 
 ---
 
