@@ -14,8 +14,8 @@ import os, re, json, time, hashlib, argparse
 from pathlib import Path
 import numpy as np
 
-# ---- Config (paths consistent with your notebook/app) ----
-IN_JSON_DEFAULT   = "processed_documents.json"          
+# ---- Config (paths consistent with notebook/app) ----
+IN_JSON_DEFAULT   = "processed_documents_clean.json"          
 DOCS_JSON = "processed_documents_clean.json"
 OUT_JSON_CLEAN    = "processed_documents_clean.json"
 EMB_PATH          = "embeddings.npy"
