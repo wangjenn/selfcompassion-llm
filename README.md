@@ -1,7 +1,11 @@
 # Self-Compassion LLM for Neurodiverse Brains 🧠
 
-## 🚀 Quickstart
+## 💕 LIVE DEMO
+- [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
 
+---
+
+## 🚀 Quickstart (clone and run locally)
 - **Clone the repo and install dependencies:**
 
 ```bash
@@ -66,7 +70,7 @@ streamlit run monitor.py
 
 ---
 
-## 📊 Evaluation Results
+## ✅ Evaluation Results
 
 - The Self-Compassion RAG system was evaluated on a golden dataset of 20 queries with labeled relevant documents.
 
