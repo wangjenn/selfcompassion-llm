@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy 
 COPY streamlit_app.py ingestion.py ./
 # Copy the three artifacts
-COPY processed_documents_clean.json embeddings.npy id_index.json ./
+# COPY processed_documents_clean.json embeddings.npy id_index.json ./
 
 # Create non-root user and a writable logs dir
 RUN useradd --create-home appuser \
