@@ -71,9 +71,9 @@ streamlit run monitor.py
 ---
 
 ## ✅ Evaluation Results
+- App is deployed and running [here](https://selfcompassion.streamlit.app/). 
+- The **Self-Compassion RAG system** was evaluated on a golden dataset of 20 queries with labeled relevant documents.
 
-- The Self-Compassion RAG system was evaluated on a golden dataset of 20 queries with labeled relevant documents.
-- The app is deployed and running [LIVE](https://selfcompassion.streamlit.app/)
 
 ### Performance Metrics
 
