@@ -116,10 +116,6 @@ def _atomic_write_json(path: str, obj: dict):
         json.dump(obj, f, ensure_ascii=False, indent=2)
     os.replace(tmp, path)
 
-def _l2_normalize(mat: np.ndarray, eps=1e-8) -> np.ndarray:
-    norms = np.linalg.norm(mat, axis=1, keepdims=True) + eps
-    return mat / norms
-
 def _load_corpus() -> List[Dict]:
     if not Path(DOCS_JSON).exists():
         return []
@@ -143,8 +139,15 @@ def _load_index() -> Tuple[np.ndarray, List[str]]:
     return embs, order
 
 def _save_index(embs: np.ndarray, order: List[str]):
-    _atomic_write_bytes(EMB_PATH, embs.astype(np.float32).tobytes())
+    # write embeddings atomically with .npy header
+    tmp = Path(EMB_PATH).with_suffix(".npy.tmp")
+    np.save(tmp, embs.astype(np.float32))
+    os.replace(tmp, EMB_PATH)
     _atomic_write_json(IDX_PATH, {"order": order})
+
+# def _save_index(embs: np.ndarray, order: List[str]):
+#     _atomic_write_bytes(EMB_PATH, embs.astype(np.float32).tobytes())
+#     _atomic_write_json(IDX_PATH, {"order": order})
 
 def _embed_texts(client: OpenAI, texts: List[str], model: str) -> np.ndarray:
     B = 128

@@ -1,5 +1,5 @@
 {
-  "ts": "2025-08-17T01:23:14Z",
+  "ts": "2025-08-17T01:53:03Z",
   "input_json": "/Users/jenniferwang/selfcompassion-llm/processed_documents_clean.json",
   "output_json": "/Users/jenniferwang/selfcompassion-llm/processed_documents_clean.json",
   "embeddings": "/Users/jenniferwang/selfcompassion-llm/embeddings.npy",
