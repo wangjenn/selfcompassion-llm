@@ -11,8 +11,12 @@ Artifacts produced:
 """
 
 import os, re, json, time, hashlib, argparse
+from dotenv import load_dotenv
+from openai import OpenAI
 from pathlib import Path
 import numpy as np
+import os, json, uuid, argparse, tempfile, shutil
+from typing import List, Dict, Tuple
 
 # ---- Config (paths consistent with notebook/app) ----
 IN_JSON_DEFAULT   = "processed_documents_clean.json"          
@@ -99,6 +103,58 @@ def _embed_texts_openai(texts, model="text-embedding-3-small", batch_size=128):
 def _l2_normalize(mat: np.ndarray, eps=1e-8) -> np.ndarray:
     norms = np.linalg.norm(mat, axis=1, keepdims=True) + eps
     return mat / norms
+
+def _atomic_write_bytes(path: str, data: bytes):
+    tmp = Path(path).with_suffix(Path(path).suffix + ".tmp")
+    with open(tmp, "wb") as f:
+        f.write(data)
+    os.replace(tmp, path)
+
+def _atomic_write_json(path: str, obj: dict):
+    tmp = Path(path).with_suffix(Path(path).suffix + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, path)
+
+def _l2_normalize(mat: np.ndarray, eps=1e-8) -> np.ndarray:
+    norms = np.linalg.norm(mat, axis=1, keepdims=True) + eps
+    return mat / norms
+
+def _load_corpus() -> List[Dict]:
+    if not Path(DOCS_JSON).exists():
+        return []
+    with open(DOCS_JSON, "r", encoding="utf-8") as f:
+        docs = json.load(f)
+    # ensure ids exist
+    for d in docs:
+        if not d.get("id"):
+            d["id"] = str(uuid.uuid4())
+    return docs
+
+def _save_corpus(docs: List[Dict]):
+    _atomic_write_json(DOCS_JSON, docs)
+
+def _load_index() -> Tuple[np.ndarray, List[str]]:
+    if not (Path(EMB_PATH).exists() and Path(IDX_PATH).exists()):
+        return None, None
+    embs = np.load(EMB_PATH).astype(np.float32)
+    with open(IDX_PATH, "r", encoding="utf-8") as f:
+        order = json.load(f)["order"]
+    return embs, order
+
+def _save_index(embs: np.ndarray, order: List[str]):
+    _atomic_write_bytes(EMB_PATH, embs.astype(np.float32).tobytes())
+    _atomic_write_json(IDX_PATH, {"order": order})
+
+def _embed_texts(client: OpenAI, texts: List[str], model: str) -> np.ndarray:
+    B = 128
+    out = []
+    for i in range(0, len(texts), B):
+        batch = texts[i:i+B]
+        resp = client.embeddings.create(model=model, input=batch)
+        out.extend([np.array(e.embedding, dtype=np.float32) for e in resp.data])
+    arr = np.vstack(out).astype(np.float32)
+    return _l2_normalize(arr)
 
 # ---- Utility ----
 def _sha1(s: str) -> str:
@@ -197,6 +253,99 @@ def main():
 
     write_manifest(args, len(docs_raw), len(docs_clean))
     print("✅ Ingestion completed")
+
+# -- Upsert -- 
+def upsert_documents(new_docs: List[Dict], dry_run: bool = False) -> Dict:
+    """
+    Upsert a list of docs (each must have 'id' and 'text'; we will assign id if missing).
+    - Replaces vectors for existing ids
+    - Appends vectors for new ids
+    - Updates processed_documents_clean.json, embeddings.npy, id_index.json
+
+    Returns a summary dict.
+    """
+    # Load env / OpenAI
+    load_dotenv()
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY not set. Upsert requires embeddings.")
+    client = OpenAI(api_key=api_key)
+
+    # 1) Load existing corpus + index (if any)
+    corpus = _load_corpus()
+    embs, order = _load_index()
+
+    # Build id → position map for corpus & index
+    corpus_map = {d["id"]: i for i, d in enumerate(corpus)} if corpus else {}
+    index_map  = {doc_id: i for i, doc_id in enumerate(order)} if order else {}
+
+    # 2) Normalize new docs (ensure ids + basic fields)
+    normalized_new = []
+    for d in new_docs:
+        nd = dict(d)
+        if not nd.get("id"):
+            nd["id"] = str(uuid.uuid4())
+        if "text" not in nd:
+            nd["text"] = ""
+        normalized_new.append(nd)
+
+    # Separate replace vs insert sets
+    replace_ids = [d["id"] for d in normalized_new if d["id"] in corpus_map]
+    insert_ids  = [d["id"] for d in normalized_new if d["id"] not in corpus_map]
+
+    # 3) Embed only new_docs (we need embeddings for all upserts; for replaces we overwrite)
+    new_texts = [d["text"] for d in normalized_new]
+    new_vecs  = _embed_texts(client, new_texts, EMBED_MODEL)  # aligned to normalized_new order
+
+    if dry_run:
+        return {
+            "dry_run": True,
+            "existing_docs": len(corpus),
+            "existing_index": None if embs is None else int(embs.shape[0]),
+            "to_replace": len(replace_ids),
+            "to_insert": len(insert_ids),
+        }
+
+    # 4) Update corpus list (in-place replace or append)
+    for d, vec in zip(normalized_new, new_vecs):
+        if d["id"] in corpus_map:
+            corpus[corpus_map[d["id"]]] = d  # replace doc
+        else:
+            corpus.append(d)
+            corpus_map[d["id"]] = len(corpus) - 1
+
+    # 5) Update embedding matrix + order
+    if embs is None or order is None:
+        # No existing index → initialize fresh with *all* corpus docs for alignment
+        # We must embed the whole corpus so embs rows match corpus order.
+        texts = [d["text"] for d in corpus]
+        full_vecs = _embed_texts(client, texts, EMBED_MODEL)
+        embs = full_vecs
+        order = [d["id"] for d in corpus]
+    else:
+        # We have an existing index. For each upsert:
+        for d, vec in zip(normalized_new, new_vecs):
+            if d["id"] in index_map:
+                # replace existing row
+                embs[index_map[d["id"]]] = vec
+            else:
+                # append new row
+                embs = np.vstack([embs, vec])
+                order.append(d["id"])
+                index_map[d["id"]] = len(order) - 1
+
+    # 6) Save everything atomically
+    _save_corpus(corpus)
+    _save_index(embs, order)
+
+    return {
+        "dry_run": False,
+        "total_docs": len(corpus),
+        "index_rows": int(embs.shape[0]),
+        "replaced": len(replace_ids),
+        "inserted": len(insert_ids),
+    }
+
 
 if __name__ == "__main__":
     main()
