@@ -12,11 +12,13 @@ import time, uuid, json, os
 from pathlib import Path
 from datetime import datetime
 import pandas as pd
+from pathlib import Path
 
-LOG_PATH = pathlib.Path("logs/qa_log.jsonl")
+LOG_PATH = Path("logs/events.jsonl")  # <- unify on events.jsonl so monitor.py sees it
 LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 def log_event(record: dict):
+    import time, json
     record.setdefault("ts", time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
     with LOG_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
@@ -42,10 +44,10 @@ EMB_PATH = "embeddings.npy"
 IDX_PATH = "id_index.json"
 EMBED_MODEL = "text-embedding-3-small"
 
-# ---- Monitoring config ----
-LOG_DIR = Path("logs")
-LOG_DIR.mkdir(exist_ok=True)
-LOG_PATH = LOG_DIR / "events.jsonl"
+# # ---- Monitoring config ----
+# LOG_DIR = Path("logs")
+# LOG_DIR.mkdir(exist_ok=True)
+# LOG_PATH = LOG_DIR / "events.jsonl"
 
 # ---------- Preprocess ----------
 STOPWORDS = {
@@ -376,17 +378,37 @@ if go and query and query.strip():
                 st.markdown(header)
                 st.write(d["text"][:800] + ("..." if len(d["text"]) > 800 else ""))
         
-        # 8) Log success
+        
+        # 8) Log success (now includes the answer text and structured sources)
+        retrieved_docs = docs_reranked[:k]  # the docs actually used to answer
+
         log_event({
             "event_id": str(uuid.uuid4()),
             "ts": _now_iso(),
+            "event": "qa_answer",
             "query": original_query,
             "rewritten_query": search_query,
             "mode": mode,
-            "answer_len_chars": len(result.get("answer", "")),
-            "sources_count": len(result.get("sources", [])),
+            "k": k,
             "rewrite_enabled": enable_rewrite,
             "rerank_enabled": enable_rerank,
+
+            # NEW: persist answer and sources
+            "answer": result.get("answer", ""),
+            "sources": [
+                {
+                    "id": d.get("id"),
+                    "source": d.get("source"),
+                    "page_start": d.get("page_start"),
+                    "page_end": d.get("page_end")
+                }
+                for d in retrieved_docs
+            ],
+            "retrieved_ids": [d.get("id") for d in retrieved_docs],
+
+            # existing metrics
+            "answer_len_chars": len(result.get("answer", "")),
+            "sources_count": len(result.get("sources", [])),
             "error": None,
         })
 
@@ -402,19 +424,6 @@ if go and query and query.strip():
             "sources_count": 0,
             "error": error_msg,
         })
-
-# right after display the answer in Streamlit
-st.markdown(answer_text)
-
-# capture the essentials likely already have
-log_event({
-    "query": user_query,
-    "retriever": retriever_name,   # e.g., "bm25" | "vector" | "hybrid"
-    "k": k_value,                  # current top-k
-    "answer": answer_text,         # <— NEW
-    "sources": sources_list,       # e.g., [{"source": x, "page_start": y, "page_end": z}, ...]
-    "retrieved_ids": [d.get("id") for d in retrieved_docs]
-})
 
 # ---------- Feedback ----------
 feedback = st.radio("Was this answer helpful?", ["👍🏻 Yes", "👎🏻 No"], index=None)
