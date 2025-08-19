@@ -355,8 +355,12 @@ if go and query and query.strip():
         st.subheader("Sources")
         for i, src_info in enumerate(result.get("sources", []), start=1):
             src, p1, p2 = src_info
+            
+            if src == "HowtoADHD.pdf":
+                src = "Jessica McCabe_(2024)-HowToADHD.pdf"
             pp = f" (pages {p1}-{p2})" if p1 is not None and p2 is not None else " (pages unknown)"
             st.markdown(f"- **[{i}]** {src}{pp}")
+        
 
         # 7) Show retrieved passages with scores
         with st.expander("Show retrieved passages + scores"):
