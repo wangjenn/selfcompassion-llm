@@ -305,6 +305,14 @@ with st.sidebar:
     enable_rewrite = st.checkbox("Enable query rewriting", value=True)
     enable_rerank = st.checkbox("Enable document re-ranking", value=True)
     
+    # Prompt styles
+    prompt_style = st.selectbox(
+        "Prompt style",
+        ["💕 Supportive", "📚 Direct", "💪🏻 Action-Oriented"],
+        index=0
+    )
+    llm_model = st.selectbox("LLM model", ["gpt-4o-mini", "gpt-3.5-turbo"], index=0)
+    
     st.markdown("---")
     st.caption("Embeddings cache")
     st.write(f"`{EMB_PATH}` present: {os.path.exists(EMB_PATH)}")
@@ -325,6 +333,46 @@ if query:
 result = None
 docs = []
 docs_reranked = []
+
+def get_prompt(query, docs, style):
+    context = "\n\n".join([f"[{i+1}] {d['text']}" for i, d in enumerate(docs)])
+    if style == "💕 Supportive":
+        prompt = f"""You are a supportive, ADHD-aware coach. Reflect thoughtfully on the question and answer compassionately using ONLY the context. If it's not there, say you don't know.
+Do not list sources; they will be shown separately.
+
+Context:
+{context}
+
+Question: {query}
+Return an answer in 4–8 sentences.
+"""
+    elif style == "📚 Direct":
+        prompt = f"""Answer the question using ONLY the context below. Be brief, concise, and factual. 
+If you don't know, say so.
+
+Context:
+{context}
+
+Question: {query}
+"""
+    elif style == "💪🏻 Action-Oriented":
+        prompt = f"""You are supportive and concise. Answer the question using ONLY the context. Suggest practical small steps or mini exercises based on the context.
+If unsure, say you don't know.
+
+Context:
+{context}
+
+Question: {query}
+"""
+    else:
+        prompt = f"""Answer using ONLY the context below.
+
+Context:
+{context}
+
+Question: {query}
+"""
+    return prompt
 
 if go and query and query.strip():
     # 1) Query rewriting
@@ -357,7 +405,16 @@ if go and query and query.strip():
             docs_reranked = docs
         
         # 5) Generate answer
-        result = answer_with_grounding(original_query, docs_reranked[:k], temperature=temp)
+        prompt = get_prompt(original_query, docs_reranked[:k], prompt_style)
+        resp = client.chat.completions.create(
+            model=llm_model,
+            messages=[{"role":"user","content":prompt}],
+            temperature=temp
+        )
+        result = {
+            "answer": resp.choices[0].message.content,
+            "sources": [(d.get("source","(unknown)"), d.get("page_start"), d.get("page_end")) for d in docs_reranked[:k]]
+        }
         
         # Persist for reruns (so clicking feedback doesn’t erase it)
         st.session_state["last_result"] = result
@@ -415,6 +472,8 @@ if go and query and query.strip():
             "k": k,
             "rewrite_enabled": enable_rewrite,
             "rerank_enabled": enable_rerank,
+            "prompt_style": prompt_style,
+            "llm_model": llm_model,
 
             # NEW: persist answer and sources
             "answer": result.get("answer", ""),

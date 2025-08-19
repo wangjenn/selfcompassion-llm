@@ -140,3 +140,16 @@ if not saved_df.empty:
 else:
     st.write("No saved answers yet.")
 
+st.header("LLM Evaluation Stats")
+
+if not df.empty:
+    # Prompt style breakdown
+    if "prompt_style" in df.columns:
+        st.subheader("Prompt Style Usage")
+        st.bar_chart(df["prompt_style"].value_counts())
+
+    # LLM model breakdown
+    if "llm_model" in df.columns:
+        st.subheader("LLM Model Usage")
+        st.bar_chart(df["llm_model"].value_counts())
+
