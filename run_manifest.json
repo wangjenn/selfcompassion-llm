@@ -1,11 +1,11 @@
 {
-  "ts": "2025-08-17T01:53:03Z",
+  "ts": "2025-08-19T01:11:21Z",
   "input_json": "/Users/jenniferwang/selfcompassion-llm/processed_documents_clean.json",
   "output_json": "/Users/jenniferwang/selfcompassion-llm/processed_documents_clean.json",
   "embeddings": "/Users/jenniferwang/selfcompassion-llm/embeddings.npy",
   "id_index": "/Users/jenniferwang/selfcompassion-llm/id_index.json",
-  "docs_in": 3559,
-  "docs_out": 3559,
+  "docs_in": 4246,
+  "docs_out": 4246,
   "embed_model": "text-embedding-3-small",
   "built_embeddings": true
 }
