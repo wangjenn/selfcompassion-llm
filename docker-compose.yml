@@ -14,7 +14,7 @@ services:
       - STREAMLIT_SERVER_PORT=8503
     volumes:
       - ./logs:/app/logs           # persist monitoring
-      - ./data:/app/data           # if use a data dir
+      - ./data:/app/data           
       - ./processed_documents_clean.json:/app/processed_documents_clean.json
       - ./embeddings.npy:/app/embeddings.npy
       - ./id_index.json:/app/id_index.json
