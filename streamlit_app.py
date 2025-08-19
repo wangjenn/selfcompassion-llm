@@ -22,7 +22,18 @@ def log_event(record: dict):
     record.setdefault("ts", time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
     with LOG_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
-        
+
+# --- Session defaults ---
+if "last_result" not in st.session_state:
+    st.session_state["last_result"] = None
+if "last_query" not in st.session_state:
+    st.session_state["last_query"] = ""
+if "last_docs" not in st.session_state:
+    st.session_state["last_docs"] = []
+if "last_event_id" not in st.session_state:
+    st.session_state["last_event_id"] = None
+
+
 # ───────────────────────────────────────────────────────────────────────────────
 # STREAMLIT CONFIG ───────────────────────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Self-Compassion RAG (MVP)", page_icon="💬")
@@ -348,20 +359,28 @@ if go and query and query.strip():
         # 5) Generate answer
         result = answer_with_grounding(original_query, docs_reranked[:k], temperature=temp)
         
+        # Persist for reruns (so clicking feedback doesn’t erase it)
+        st.session_state["last_result"] = result
+        st.session_state["last_query"] = original_query
+        st.session_state["last_docs"] = docs_reranked[:k]
+        
         # 6) Display results
-        st.subheader("Answer")
-        st.write(result.get("answer", ""))
+        display_result = result or st.session_state.get("last_result")
+        display_docs   = docs_reranked[:k] if result else st.session_state.get("last_docs") or []
         
-        st.subheader("Sources")
-        for i, src_info in enumerate(result.get("sources", []), start=1):
-            src, p1, p2 = src_info
+        if display_result:
+            st.subheader("Answer")
+            st.write(result.get("answer", ""))
             
-            if src == "HowtoADHD.pdf":
-                src = "Jessica McCabe_(2024)-HowToADHD.pdf"
-            pp = f" (pages {p1}-{p2})" if p1 is not None and p2 is not None else " (pages unknown)"
-            st.markdown(f"- **[{i}]** {src}{pp}")
+            st.subheader("Sources")
+            for i, src_info in enumerate(result.get("sources", []), start=1):
+                src, p1, p2 = src_info
+                
+                if src == "HowtoADHD.pdf":
+                    src = "Jessica McCabe_(2024)-HowToADHD.pdf"
+                pp = f" (pages {p1}-{p2})" if p1 is not None and p2 is not None else " (pages unknown)"
+                st.markdown(f"- **[{i}]** {src}{pp}")
         
-
         # 7) Show retrieved passages with scores
         with st.expander("Show retrieved passages + scores"):
             for i, d in enumerate(docs_reranked, 1):
@@ -415,6 +434,34 @@ if go and query and query.strip():
             "sources_count": len(result.get("sources", [])),
             "error": None,
         })
+        
+        qa_event_id = str(uuid.uuid4())
+        log_event({
+            "event_id": qa_event_id,
+            "ts": _now_iso(),
+            "event": "qa_answer",
+            "query": original_query,
+            "rewritten_query": search_query,
+            "mode": mode,
+            "k": k,
+            "rewrite_enabled": enable_rewrite,
+            "rerank_enabled": enable_rerank,
+            "answer": result.get("answer", ""),
+            "sources": [
+                {
+                    "id": d.get("id"),
+                    "source": d.get("source"),
+                    "page_start": d.get("page_start"),
+                    "page_end": d.get("page_end")
+                } for d in retrieved_docs
+            ],
+            "retrieved_ids": [d.get("id") for d in retrieved_docs],
+            "answer_len_chars": len(result.get("answer", "")),
+            "sources_count": len(result.get("sources", [])),
+            "error": None,
+        })
+        st.session_state["last_event_id"] = qa_event_id
+        
 
     except Exception as e:
         error_msg = str(e)
