@@ -13,6 +13,14 @@ from pathlib import Path
 from datetime import datetime
 import pandas as pd
 
+LOG_PATH = pathlib.Path("logs/qa_log.jsonl")
+LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+def log_event(record: dict):
+    record.setdefault("ts", time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+    with LOG_PATH.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        
 # ───────────────────────────────────────────────────────────────────────────────
 # STREAMLIT CONFIG ───────────────────────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Self-Compassion RAG (MVP)", page_icon="💬")
@@ -305,12 +313,6 @@ result = None
 docs = []
 docs_reranked = []
 
-# query = st.text_input("Ask a question", placeholder="e.g., self-compassion exercise for anxiety")
-# go = st.button("Answer")
-# result = None
-# docs = []
-# docs_reranked = []
-
 if go and query and query.strip():
     # 1) Query rewriting
     original_query = query
@@ -400,6 +402,19 @@ if go and query and query.strip():
             "sources_count": 0,
             "error": error_msg,
         })
+
+# right after display the answer in Streamlit
+st.markdown(answer_text)
+
+# capture the essentials likely already have
+log_event({
+    "query": user_query,
+    "retriever": retriever_name,   # e.g., "bm25" | "vector" | "hybrid"
+    "k": k_value,                  # current top-k
+    "answer": answer_text,         # <— NEW
+    "sources": sources_list,       # e.g., [{"source": x, "page_start": y, "page_end": z}, ...]
+    "retrieved_ids": [d.get("id") for d in retrieved_docs]
+})
 
 # ---------- Feedback ----------
 feedback = st.radio("Was this answer helpful?", ["👍🏻 Yes", "👎🏻 No"], index=None)

@@ -3,6 +3,28 @@ import csv, json, os, time, uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+import json, os
+import pandas as pd
+import streamlit as st
+
+LOG_FILE = "logs/interactions.jsonl"
+
+@st.cache_data
+def load_logs():
+    rows = []
+    if os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            for line in f:
+                try:
+                    rows.append(json.loads(line))
+                except:
+                    pass
+    return rows
+
+rows = load_logs()
+df = pd.DataFrame(rows)
+
+st.title("Monitoring Dashboard")
 
 LOG_DIR = Path("logs")
 LOG_DIR.mkdir(exist_ok=True)
@@ -82,3 +104,39 @@ def read_last_logs(n: int = 30) -> list:
         lines = f.readlines()
     # Parse last n lines as JSON
     return [json.loads(line) for line in lines[-n:]]
+
+def load_saved_answers():
+    """Load saved answers from logs/saved_answers.jsonl."""
+    saved_file = LOG_DIR / "saved_answers.jsonl"
+    if not saved_file.exists():
+        return []
+    
+    answers = []
+    with saved_file.open("r", encoding="utf-8") as f:
+        for line in f:
+            try:
+                answers.append(json.loads(line.strip()))
+            except json.JSONDecodeError:
+                continue
+    return answers
+
+# Load saved answers
+saved_answers = load_saved_answers()
+saved_df = pd.DataFrame(saved_answers) if saved_answers else pd.DataFrame()
+
+# Display saved answers section
+st.header("💾 Saved Answers")
+if not saved_df.empty:
+    st.write(f"Total saved answers: {len(saved_df)}")
+    
+    # Show recent saved answers
+    st.subheader("Recent Saved Answers")
+    for i, row in saved_df.tail(5).iterrows():
+        with st.expander(f"Q: {row.get('query', '')[:50]}..."):
+            st.write(f"**Question:** {row.get('query', '')}")
+            st.write(f"**Answer:** {row.get('answer', '')[:300]}...")
+            st.write(f"**Saved:** {row.get('timestamp', '')[:16]}")
+            st.write(f"**Mode:** {row.get('mode', '')}")
+else:
+    st.write("No saved answers yet.")
+

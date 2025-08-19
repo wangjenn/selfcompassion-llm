@@ -40,10 +40,7 @@ selfcompassion-llm/
 ├── Dockerfile
 ├── processed_documents_clean.json  # demo dataset
 ├── requirements.txt
-└── notebook/               # exploration and implementation notebooks
-    ├── README.md           # notebook documentation
-    ├── self_compassion_rag_implementation.ipynb  # RAG implementation demo
-    └── rag_implementation_example.py             # Python script version
+└── notebooks/              # (optional) exploration notebooks
 ```
 
 ---
@@ -117,9 +114,7 @@ python evaluation.py
 
 ## 📘 Development Notes
 
-- Exploration notebooks are under `/notebook/`.  
-- See `notebook/README.md` for detailed documentation of the RAG implementation.
-- The `rag_implementation_example.py` provides a clean, educational version of the core RAG system.
+- Exploration notebooks are under `/notebooks/`.  
 - Embeddings (`embeddings.npy`, `id_index.json`) are **ignored** from git.  
 - Feedback data is stored locally (not shared).  
 
