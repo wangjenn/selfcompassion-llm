@@ -255,7 +255,7 @@ Context:
 {context}
 
 Question: {query}
-Return an answer in 4–6 sentences.
+Return an answer in 4–8 sentences.
 """
     resp = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -318,9 +318,12 @@ with st.sidebar:
     st.write(f"`{EMB_PATH}` present: {os.path.exists(EMB_PATH)}")
     st.write(f"`{IDX_PATH}` present: {os.path.exists(IDX_PATH)}")
 
+# Larger, bolded caption for question input
+st.markdown("<span style='font-size:1.2em; font-weight:bold;'>Ask a question</span>", unsafe_allow_html=True)
 query = st.text_input(
-    "Ask a question",
-    placeholder="e.g., self-compassion exercise for anxiety"
+    "Ask a question",  # Non-empty label for accessibility
+    placeholder="e.g., self-compassion exercise for anxiety",
+    label_visibility="collapsed"
 )
 
 # Trigger if either the button is pressed OR Enter is hit in the input box
@@ -536,7 +539,14 @@ if go and query and query.strip():
         })
 
 # ---------- Feedback ----------
-feedback = st.radio("Was this answer helpful?", ["👍🏻 Yes", "👎🏻 No"], index=None)
+# Slightly larger, bold feedback prompt
+st.markdown("<span style='font-size:1.05em; font-weight:bold;'>Was this answer helpful?</span>", unsafe_allow_html=True)
+feedback = st.radio(
+    "Was this answer helpful?",  # Non-empty label for accessibility
+    ["👍🏻 Yes", "👎🏻 No"],
+    index=None,
+    label_visibility="collapsed"
+)
 if feedback and result:
     log_event({
         "event_id": str(uuid.uuid4()),
@@ -549,7 +559,7 @@ if feedback and result:
         "sources_count": len(result.get("sources", [])),
         "error": None,
     })
-    st.success("Feedback recorded. Thank you!")
+    st.success("Feedback recorded. Thanks so much for your feedback! 💖")
 
 # ---------- Monitoring Dashboard ----------
 logs = read_last_logs(500)
@@ -612,3 +622,19 @@ with st.expander("📈 Monitoring Dashboard (last 30 events)"):
                 )
                 fig_fb.update_traces(textinfo="percent+label")
                 st.plotly_chart(fig_fb, use_container_width=True)
+
+st.markdown(
+    """
+    <hr>
+    <div style='font-size:11px; color:gray; line-height:1.6;'>
+        <strong>⚠️ Disclaimer:</strong> This application is for informational and educational purposes only.
+        It is <em>not</em> intended to diagnose, treat, cure, or prevent any mental health condition.
+        If you are in emotional distress or experiencing a crisis, please contact a licensed mental health professional
+        or reach out to a suicide prevention service such as the 
+        <a href="https://988lifeline.org" target="_blank">988 Suicide & Crisis Lifeline</a>
+        or <a href="https://www.crisistextline.org/" target="_blank">Crisis Text Line</a>.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
