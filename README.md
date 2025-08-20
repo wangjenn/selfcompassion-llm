@@ -132,7 +132,7 @@ python evaluation.py
   make ingest
   ```
   or 
-  ```python
+  ```bash
   python ingestion.py
   ```
 
