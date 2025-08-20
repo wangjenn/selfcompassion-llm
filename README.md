@@ -5,6 +5,18 @@
 
 ---
 
+## 🛠️ Environment & Configuration
+
+- **Python version:** Python 3.11+ recommended
+- **Environment variables:**  
+  - `OPENAI_API_KEY` (required for LLM features; set in a `.env` file or your environment)
+
+```
+OPENAI_API_KEY=sk-...
+```
+
+---
+
 ## 🚀 Quickstart (clone and run locally)
 - **Clone the repo and install dependencies:**
 
@@ -26,8 +38,19 @@ python ingestion.py
 streamlit run streamlit_app.py
 ```
 
----
+## 🛥 Alternative: Docker Setup
+- Set up API key. Create a `.env` file in project root: 
+```bash
+OPENAI_API_KEY=your_actual_api_key_here
+```
+- Run docker: 
+```bash
+docker-compose up -- build
+```
+- Access at http://localhost:8503
 
+
+---
 ## 📂 Project Structure
 
 ```
@@ -36,11 +59,12 @@ selfcompassion-llm/
 ├── streamlit_app.py        # main Streamlit app
 ├── ingestion.py            # build FAISS/embedding index
 ├── monitor.py              # simple monitoring dashboard
-├── docker-compose.yml      # optional Docker setup
+├── docker-compose.yml      # Docker setup
 ├── Dockerfile
+├── Makefile                # Developer shortcuts 
 ├── processed_documents_clean.json  # demo dataset
 ├── requirements.txt
-└── notebooks/              # (optional) exploration notebooks
+└── notebooks/              # exploration notebook with example code
 ```
 
 ---
@@ -69,13 +93,16 @@ streamlit run monitor.py
 ```
 
 ---
-
 ## ✅ Evaluation Results
+### Running Evaluation
+
+```bash
+python evaluation.py
+```
 - App is deployed and running [here](https://selfcompassion.streamlit.app/). 
-- The **Self-Compassion RAG system** was evaluated on a golden dataset of 20 queries with labeled relevant documents.
+- The **Self-Compassion RAG system** was evaluated on a golden dataset of 20 queries with labeled relevant documents. It tests the RAG system against the golden dataset.
 
-
-### Performance Metrics
+### 👍🏻 Performance Metrics
 
 | Retrieval Method | Hit Rate | MRR   | Precision@10 | Recall@10 |
 |------------------|----------|-------|--------------|-----------|
@@ -84,17 +111,12 @@ streamlit run monitor.py
 | **TF-IDF**       | 0.900    | 0.410 | 0.090        | 0.900     |
 | **Hybrid**       | 0.950    | 0.520 | 0.095        | 0.950     |
 
-### Key Findings
+
+### 💡 Key Findings
 - **BM25** consistently achieves perfect hit rate and recall in this dataset, with the best MRR (0.598), ranking relevant documents higher.
 - **Hybrid** slightly improves over pure TF-IDF and Vector, balancing precision and recall.
 - **Vector** and **TF-IDF** show similar performance, with lower MRR than BM25 but decent recall.
-- **BM25** emerges as the most reliable retriever under current conditions.
-
-### Running Evaluation
-
-```bash
-python evaluation.py
-```
+- **BM25** emerges as the most reliable retriever under current conditions, though **Hybrid** provides a good balance. 
 
 ---
 
@@ -108,6 +130,10 @@ python evaluation.py
   
   ```bash
   make ingest
+  ```
+  or 
+  ```python
+  python ingestion.py
   ```
 
 ---
