@@ -11,7 +11,9 @@
 ---
 ## 💕 Live Demo
 - Try out the **deployed app** (no setup required!) 👉🏻 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
-<br><br>
+
+[videowalkthrough.webm](https://github.com/user-attachments/assets/d5fb192b-9fbe-46a0-bf0b-b9fd50163793)
+
 
 ---
 ## 💡 Features
