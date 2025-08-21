@@ -575,11 +575,36 @@ if not df.empty and "mode" in df.columns:
     st.sidebar.bar_chart(_safe_series(df, "mode").value_counts().sort_index())
 
 # Main monitoring dashboard
-with st.expander("📈 Monitoring Dashboard (last 30 events)"):
+st.markdown("### 📊 Analytics & Monitoring")
+with st.expander("**📈 Monitoring Dashboard (last 30 events)**"):
     if df.empty:
         st.write("No events logged yet.")
     else:
-        st.dataframe(df.tail(30), use_container_width=True)
+        # Create a readable sources column
+        df_display = df.tail(30).copy()
+        if 'sources' in df_display.columns:
+            def format_sources(sources):
+                if not sources or not isinstance(sources, list):
+                    return ""
+                formatted = []
+                for source in sources:
+                    if isinstance(source, dict):
+                        source_name = source.get('source', 'Unknown')
+                        page_start = source.get('page_start')
+                        page_end = source.get('page_end')
+                        if page_start is not None and page_end is not None:
+                            formatted.append(f"{source_name} (pages {page_start}-{page_end})")
+                        else:
+                            formatted.append(source_name)
+                    else:
+                        formatted.append(str(source))
+                return "; ".join(formatted)
+            
+            df_display['sources_readable'] = df_display['sources'].apply(format_sources)
+        
+        # Filter out complex columns that show as [object Object]
+        display_columns = [col for col in df_display.columns if col not in ['sources', 'qa_event_id', 'docs']]
+        st.dataframe(df_display[display_columns], use_container_width=True)
 
         # Answer length over time
         st.subheader("Answer length (characters)")
@@ -605,7 +630,6 @@ with st.expander("📈 Monitoring Dashboard (last 30 events)"):
             rerank_counts = _safe_series(df, "rerank_enabled").value_counts()
             st.bar_chart(rerank_counts)
             
-        
         # Feedback pie chart
         fb = _safe_series(df, "feedback")
         st.subheader("Feedback counts")

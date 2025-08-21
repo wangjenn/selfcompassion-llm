@@ -1,7 +1,12 @@
 # Self-Compassion LLM for Neurodiverse Brains 🧠
 
+![Alt text for accessibility](images/selfcompassion.jpeg)
+
+## 🧠 INTRO
+- Evidence-based/scientific
+
 ## 💕 LIVE DEMO
-- Try out the **deployed app** (no setup required) 👉🏻 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
+- Try out the **deployed app** (no setup required!) 👉🏻 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
 
 ---
 
@@ -102,7 +107,7 @@ python evaluation.py
 - App is deployed and running [here](https://selfcompassion.streamlit.app/). 
 - The **Self-Compassion RAG system** was evaluated on a golden dataset of 20 queries with labeled relevant documents. It tests the RAG system against the golden dataset.
 
-### 👍🏻 Performance Metrics
+### 💪🏻 Performance Metrics
 
 | Retrieval Method | Hit Rate | MRR   | Precision@10 | Recall@10 |
 |------------------|----------|-------|--------------|-----------|
@@ -145,7 +150,12 @@ python evaluation.py
 - Feedback data is stored locally (not shared).  
 
 ---
+### 📚 Project Criteria
+- See [Project Criteria](ProjectEvaluationCriteria.md)
 
-## 📜 License
 
-MIT License
+---
+
+### Thank you so much for using the app-- I hope you found it useful! 💕🙏🏻
+
+---
