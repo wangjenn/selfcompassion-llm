@@ -4,20 +4,32 @@
 <img width="254" height="276" alt="labubu-selfcompassion" src="https://github.com/user-attachments/assets/fc95f795-bd29-435e-81c3-854555fd22d3" />
 </p>  
 
-## ✨ INTRO
-- Evidence-based/scientific
+## ✨ Introduction
+- Research shows that individuals with neurodiverse conditions (e.g., ADHD, autism) often struggle with self-compassion ([Beaton et al., 2002](https://pubmed.ncbi.nlm.nih.gov/35334113/)). Everyday reminders to be kind to oneself can be cognitively demanding and difficult to sustain, especially during stressful situations or when executive function is taxed. This project addresses that gap by offering a lightweight and accessible tool to make self-compassion easier and less effortful. Drawing from leading evidence-based research, this app provides a structured and easy way to practice kindness toward oneself ❥.
+<br><br>
 
 ---
-## 💕 LIVE DEMO
+## 💕 Live Demo
 - Try out the **deployed app** (no setup required!) 👉🏻 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
+<br><br>
 
+---
+## 💡 Features
+- **Science-based**: built using leading empirical research and science on neurodiversity and self-compassion. 
+- **Interactive Web Interface**: easy-to-use Streamlit app with fast, instant responses (press 'Enter' or click 'Answer').
+- **Smart Search Options**: choose between `hybrid`, `BM25`, or `vector` retrieval to find the most relevant guidance.
+- **Personalized Experience**: select from 3 prompt styles based on your moods and needs-- 💕 Supportive, 📚 Direct, or 💪🏻 Action-Oriented!
+- **Advanced Customization**: adjust search depth (top-k results), LLM creativity (temperature), and choose between GPT models (gpt-4o-mini or gpt-3.5-turbo). 
+- **Enhanced Retrieval**: optional query expansion and document re-ranking for better, more relevant results.
+- **Built-in Analytics**: Real-time feedback collection and monitoring dashboards to track usage and effectiveness.
+<br><br>
 ---
 ## 🛠️ Environment & Configuration
 
 - **Python version:** Python 3.11+ recommended
 - **Environment variables:**  
-  - `OPENAI_API_KEY` (required for LLM features; set in a `.env` file or your environment)
-
+  - `OPENAI_API_KEY` (required for LLM features; set in a `.env` file or your environment). 
+<br><br>
 ---
 ## 🚀 Quickstart (clone and run locally)
 - **Clone the repo and install dependencies:**
@@ -47,8 +59,9 @@
   docker-compose up -- build
   ```
 - Access at http://localhost:8503
-
+<br><br>
 ---
+
 ## 📂 Project Structure
 
 ```
@@ -64,15 +77,8 @@ selfcompassion-llm/
 ├── images                  # images folder
 └── notebooks/              # exploration notebook with example code
 ```
-
 ---
-## 💡 Features
-- Retrieval-Augmented Generation (RAG) pipeline  
-- Query rewriting + document re-ranking  
-- Simple feedback collection + monitoring dashboard  
-- Streamlit UI (press Enter or click **Answer**)  
 
----
 ## 🏠 System Architecture
 
 ```
@@ -158,7 +164,7 @@ selfcompassion-llm/
 6. **Generation** → OpenAI API with custom prompts
 7. **Response** → Answer + sources displayed to user
 8. **Monitoring** → Events logged for analytics
-
+<br><br>
 ---
 ## 📊 Monitoring
 
@@ -171,7 +177,6 @@ selfcompassion-llm/
   ```bash
   streamlit run monitor.py
   ```
-
 ---
 ## ✅ Evaluation Results
 ### Running Evaluation
@@ -182,6 +187,7 @@ selfcompassion-llm/
 - The **Self-Compassion RAG system** was evaluated on a golden dataset of 20 queries with labeled relevant documents. It tests the RAG system against the golden dataset.
 
 ---
+
 ### 💪🏻 Performance Metrics
 
 | Retrieval Method | Hit Rate | MRR   | Precision@10 | Recall@10 |
@@ -200,7 +206,6 @@ selfcompassion-llm/
 
 ---
 ## ⚡ Data & Reproducibility
-
 - Deterministic ingestion pipeline (`ingestion.py`)  
 - `requirements.txt` provided for environment setup  
 - Docker + docker-compose included for containerized runs
@@ -214,7 +219,6 @@ selfcompassion-llm/
   ```bash
   python ingestion.py
   ```
-
 ---
 ## 📘 Development Notes
 
@@ -227,4 +231,3 @@ selfcompassion-llm/
 ### ❥ *Thank you so much for using the app-- I hope you find it useful! May we all be kind to ourselves!* 💕🙏🏻
 ![selfcompassion](https://github.com/user-attachments/assets/6009a37a-be39-48d8-b736-ab19b9b6bcd7)
 
----
