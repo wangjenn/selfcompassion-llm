@@ -56,11 +56,12 @@ selfcompassion-llm/
 ├── streamlit_app.py        # main Streamlit app
 ├── ingestion.py            # build FAISS/embedding index
 ├── monitor.py              # simple monitoring dashboard
-├── docker-compose.yml      # Docker setup
+├── docker-compose.yml      # docker setup
 ├── Dockerfile
-├── Makefile                # Developer shortcuts 
+├── Makefile                # developer shortcuts 
 ├── processed_documents_clean.json  # demo dataset
 ├── requirements.txt
+├── images                  # images folder
 └── notebooks/              # exploration notebook with example code
 ```
 
