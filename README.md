@@ -1,6 +1,8 @@
 # Self-Compassion LLM for Neurodiverse Brains 🧠
 
-  ![Self-compassion](images/selfcompassion.jpeg)
+<p align="center">
+<img width="254" height="276" alt="labubu-selfcompassion" src="https://github.com/user-attachments/assets/fc95f795-bd29-435e-81c3-854555fd22d3" />
+</p>  
 
 ## 🧠 INTRO
 - Evidence-based/scientific
@@ -9,7 +11,6 @@
 - Try out the **deployed app** (no setup required!) 👉🏻 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
 
 ---
-
 ## 🛠️ Environment & Configuration
 
 - **Python version:** Python 3.11+ recommended
@@ -21,7 +22,6 @@ OPENAI_API_KEY=sk-...
 ```
 
 ---
-
 ## 🚀 Quickstart (clone and run locally)
 - **Clone the repo and install dependencies:**
 
@@ -54,7 +54,6 @@ docker-compose up -- build
 ```
 - Access at http://localhost:8503
 
-
 ---
 ## 📂 Project Structure
 
@@ -72,9 +71,7 @@ selfcompassion-llm/
 ```
 
 ---
-
 ## 💡 Features
-
 - Retrieval-Augmented Generation (RAG) pipeline  
 - Query rewriting + document re-ranking  
 - Simple feedback collection + monitoring dashboard  
@@ -167,7 +164,6 @@ selfcompassion-llm/
 7. **Response** → Answer + sources displayed to user
 8. **Monitoring** → Events logged for analytics
 
-
 ---
 ## 📊 Monitoring
 
@@ -226,7 +222,6 @@ python evaluation.py
   ```
 
 ---
-
 ## 📘 Development Notes
 
 - Exploration notebooks are under `/notebooks/`.  
@@ -237,9 +232,8 @@ python evaluation.py
 ### 📚 Project Criteria
 - See [Project Criteria](ProjectEvaluationCriteria.md)
 
-
 ---
-
-### Thank you so much for using the app-- I hope you found it useful! 💕🙏🏻
+#### Thank you so much for using the app-- I hope you find it useful! May we all be kind to ourselves 💕🙏🏻
+![selfcompassion](https://github.com/user-attachments/assets/6009a37a-be39-48d8-b736-ab19b9b6bcd7)
 
 ---
