@@ -37,6 +37,10 @@ if "last_event_id" not in st.session_state:
 # ───────────────────────────────────────────────────────────────────────────────
 # STREAMLIT CONFIG ───────────────────────────────────────────────────────────────────────────────
 st.set_page_config(page_title="Self-Compassion RAG (MVP)", page_icon="💬")
+
+# Show the Labubu image
+st.image("images/labubu-selfcompassion.png", width=254)
+
 st.title("💬 Self-Compassion RAG — MVP")
 st.caption("Share any thoughts, emotions, or questions you may have 💕.")
 
@@ -575,7 +579,7 @@ if not df.empty and "mode" in df.columns:
     st.sidebar.bar_chart(_safe_series(df, "mode").value_counts().sort_index())
 
 # Main monitoring dashboard
-st.markdown("### 📊 Analytics & Monitoring")
+st.markdown("#### 📊 Analytics & Monitoring")
 with st.expander("**📈 Monitoring Dashboard (last 30 events)**"):
     if df.empty:
         st.write("No events logged yet.")

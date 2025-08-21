@@ -223,10 +223,8 @@ selfcompassion-llm/
 - Feedback data is stored locally (not shared).  
 
 ---
-## 📚 Project Criteria
-- See [Project Criteria](ProjectEvaluationCriteria.md)
----
 
-#### ❥ Thank you so much for using the app-- I hope you find it useful! May we all be kind to ourselves! 💕🙏🏻
+### ❥ *Thank you so much for using the app-- I hope you find it useful! May we all be kind to ourselves!* 💕🙏🏻
 ![selfcompassion](https://github.com/user-attachments/assets/6009a37a-be39-48d8-b736-ab19b9b6bcd7)
+
 ---

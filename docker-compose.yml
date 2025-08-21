@@ -18,6 +18,7 @@ services:
       - ./processed_documents_clean.json:/app/processed_documents_clean.json
       - ./embeddings.npy:/app/embeddings.npy
       - ./id_index.json:/app/id_index.json
+      - ./images:/app/images 
     command: >
       streamlit run streamlit_app.py
       --server.port=8503
