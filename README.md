@@ -1,12 +1,13 @@
-# Self-Compassion LLM for Neurodiverse Brains 🧠
+# Self-Compassion LLM for Neurodiverse Brains ❥ 🧠
 
 <p align="center">
 <img width="254" height="276" alt="labubu-selfcompassion" src="https://github.com/user-attachments/assets/fc95f795-bd29-435e-81c3-854555fd22d3" />
 </p>  
 
-## 🧠 INTRO
+## ✨ INTRO
 - Evidence-based/scientific
 
+---
 ## 💕 LIVE DEMO
 - Try out the **deployed app** (no setup required!) 👉🏻 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen?style=for-the-badge)](https://selfcompassion.streamlit.app/)
 
@@ -17,41 +18,34 @@
 - **Environment variables:**  
   - `OPENAI_API_KEY` (required for LLM features; set in a `.env` file or your environment)
 
-```
-OPENAI_API_KEY=sk-...
-```
-
 ---
 ## 🚀 Quickstart (clone and run locally)
 - **Clone the repo and install dependencies:**
-
-```bash
-git clone https://github.com/<your-username>/selfcompassion-llm.git
-cd selfcompassion-llm
-pip install -r requirements.txt
-```
+  ```bash
+  git clone https://github.com/<your-username>/selfcompassion-llm.git
+  cd selfcompassion-llm
+  pip install -r requirements.txt
+  ```
 
 - **Run ingestion to build the index:**
-
-```bash
-python ingestion.py
-```
+  ```bash
+  python ingestion.py
+  ```
 
 - **Launch the Streamlit app:**
-
-```bash
-streamlit run streamlit_app.py
-```
+  ```bash
+  streamlit run streamlit_app.py
+  ```
 
 ## 🛥 Alternative: Docker Setup
 - Set up API key. Create a `.env` file in project root: 
-```bash
-OPENAI_API_KEY=your_actual_api_key_here
-```
-- Run docker: 
-```bash
-docker-compose up -- build
-```
+  ```bash
+  OPENAI_API_KEY=your_actual_api_key_here
+  ```
+- Run **docker**: 
+  ```bash
+  docker-compose up -- build
+  ```
 - Access at http://localhost:8503
 
 ---
@@ -173,20 +167,20 @@ selfcompassion-llm/
   - Query rewriting usage  
 
 - **Run it with:**
-```bash
-streamlit run monitor.py
-```
+  ```bash
+  streamlit run monitor.py
+  ```
 
 ---
 ## ✅ Evaluation Results
 ### Running Evaluation
-
-```bash
-python evaluation.py
-```
+  ```bash
+  python evaluation.py
+  ```
 - App is deployed and running [here](https://selfcompassion.streamlit.app/). 
 - The **Self-Compassion RAG system** was evaluated on a golden dataset of 20 queries with labeled relevant documents. It tests the RAG system against the golden dataset.
 
+---
 ### 💪🏻 Performance Metrics
 
 | Retrieval Method | Hit Rate | MRR   | Precision@10 | Recall@10 |
@@ -196,7 +190,7 @@ python evaluation.py
 | **TF-IDF**       | 0.900    | 0.410 | 0.090        | 0.900     |
 | **Hybrid**       | 0.950    | 0.520 | 0.095        | 0.950     |
 
-
+---
 ### 💡 Key Findings
 - **BM25** consistently achieves perfect hit rate and recall in this dataset, with the best MRR (0.598), ranking relevant documents higher.
 - **Hybrid** slightly improves over pure TF-IDF and Vector, balancing precision and recall.
@@ -204,7 +198,6 @@ python evaluation.py
 - **BM25** emerges as the most reliable retriever under current conditions, though **Hybrid** provides a good balance. 
 
 ---
-
 ## ⚡ Data & Reproducibility
 
 - Deterministic ingestion pipeline (`ingestion.py`)  
@@ -229,11 +222,10 @@ python evaluation.py
 - Feedback data is stored locally (not shared).  
 
 ---
-### 📚 Project Criteria
+## 📚 Project Criteria
 - See [Project Criteria](ProjectEvaluationCriteria.md)
-
 ---
-#### Thank you so much for using the app-- I hope you find it useful! May we all be kind to ourselves 💕🙏🏻
-![selfcompassion](https://github.com/user-attachments/assets/6009a37a-be39-48d8-b736-ab19b9b6bcd7)
 
+#### ❥ Thank you so much for using the app-- I hope you find it useful! May we all be kind to ourselves! 💕🙏🏻
+![selfcompassion](https://github.com/user-attachments/assets/6009a37a-be39-48d8-b736-ab19b9b6bcd7)
 ---
