@@ -24,6 +24,7 @@
 - **Advanced Customization**: adjust search depth (top-k results), LLM creativity (temperature), and choose between GPT models (gpt-4o-mini or gpt-3.5-turbo). 
 - **Enhanced Retrieval**: optional query expansion and document re-ranking for better, more relevant results.
 - **Built-in Analytics**: Real-time feedback collection and monitoring dashboards to track usage and effectiveness.
+
 <br><br>
 ---
 ## 🛠️ Environment & Configuration
