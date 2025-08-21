@@ -17,14 +17,40 @@
 
 ---
 ## 💡 Features
-- **Science-based**: built using leading empirical research and science on neurodiversity and self-compassion. 
+- **Science-based**: built using leading empirical research and science on neurodiversity and self-compassion.
+
 - **Interactive Web Interface**: easy-to-use Streamlit app with fast, instant responses (press 'Enter' or click 'Answer').
+  <p align="center">
+  <img width="643" height="139" alt="ScreenFloat Shot of Google Chrome on 2025-08-21 at 14-32-31" src="https://github.com/user-attachments/assets/20e8c75a-6c77-4b04-82ad-ed7073e083d2" />
+</p>
+
 - **Smart Search Options**: choose between `hybrid`, `BM25`, or `vector` retrieval to find the most relevant guidance.
+  <p align="center">
+    <img width="206" height="164" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-47-55" src="https://github.com/user-attachments/assets/53c2e092-2802-45c1-83bc-d765613a0c90" />
+  </p>
+
 - **Personalized Experience**: select from 3 prompt styles based on your moods and needs-- 💕 Supportive, 📚 Direct, or 💪🏻 Action-Oriented!
-- **Advanced Customization**: adjust search depth (top-k results), LLM creativity (temperature), and choose between GPT models (gpt-4o-mini or gpt-3.5-turbo). 
+  <p align="center">
+    <img width="211" height="187" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-47-04" src="https://github.com/user-attachments/assets/8c315c1f-114e-4e9e-aaf8-7141eb2f7c50" />
+</p>
+
+- **Advanced Customization**: adjust search depth (top-k results), LLM creativity (temperature), and choose between GPT models (gpt-4o-mini or gpt-3.5-turbo).
+<p align="center">
+  <img width="217" height="169" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-55-10" src="https://github.com/user-attachments/assets/ebd9d3ca-6707-4be5-96d3-85ffb87c8273" />
+</p>
+
 - **Enhanced Retrieval**: optional query expansion and document re-ranking for better, more relevant results.
+<p align="center">
+  <img width="190" height="94" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-57-17" src="https://github.com/user-attachments/assets/485ec704-6982-445a-acad-7985af7f2aa1" />
+</p>
+
 - **Built-in Analytics**: Real-time feedback collection and monitoring dashboards to track usage and effectiveness.
+<p align="center">
+<img width="574" height="742" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 15-00-21" src="https://github.com/user-attachments/assets/a9769c97-9cad-4242-8e14-99ec75c3c037" />
+</p>
+
 <br><br>
+
 ---
 ## 🛠️ Environment & Configuration
 
@@ -169,19 +195,22 @@ selfcompassion-llm/
 <br><br>
 ---
 ## 📊 Monitoring
-
-- **A separate monitoring page (`monitor.py`) tracks:**
-  - Sources per answer  
-  - Feedback breakdown  
-  - Query rewriting usage  
-
 - **Run it with:**
   ```bash
   streamlit run monitor.py
   ```
+- **A separate monitoring page (`monitor.py`) tracks:**
+  - Sources per answer  
+  - Feedback breakdown  
+  - Query rewriting usage
+    
+<p align="center">
+  <img width="574" height="734" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 15-05-29" src="https://github.com/user-attachments/assets/fd289e6b-2ff7-4a8b-bf81-9af05e5d28f9" />
+</p>
+
 ---
 ## ✅ Evaluation Results
-### Running Evaluation
+### 🚘 Running Evaluation
   ```bash
   python evaluation.py
   ```
@@ -230,12 +259,12 @@ selfcompassion-llm/
 ---
 ## 📝 Disclaimer
 - All responses are anonymous — nothing is saved, logged, or tracked by the app.
-- This app does not store, share, or distribute full PDFs or copyrighted materials. All content is based on short excerpts, summaries, or personal notes from books I’ve legally purchased, or on publicly available sources such as peer-reviewed research papers and podcast transcripts
+- This app does not store, share, or distribute full PDFs or copyrighted materials. All content is based on short excerpts, summaries, or personal notes from books I’ve legally purchased, or on publicly available sources such as peer-reviewed research papers and podcast transcripts.
 - This app is intended for educational and personal use only. It is not intended to diagnose, treat, cure, or prevent any mental health condition. If you are in emotional distress or experiencing a crisis, please contact a licensed mental health professional.
 ---
 
 ### ❥ *Thank you so much for using the app-- I hope you find it useful! May we all be kind to ourselves!* 💕🙏🏻
 ![selfcompassion](https://github.com/user-attachments/assets/6009a37a-be39-48d8-b736-ab19b9b6bcd7)
 
-This project is licensed under the [MIT License](./license)
+- This project is licensed under the [MIT License](./license)
 
