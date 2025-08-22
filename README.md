@@ -33,22 +33,27 @@
   <p align="center">
     <img width="211" height="187" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-47-04" src="https://github.com/user-attachments/assets/8c315c1f-114e-4e9e-aaf8-7141eb2f7c50" />
 </p>
-
+ <p align="center">
+   
   | Prompt Style             | Purpose                            | Example Response Tone                                            |
   | ------------------------ | ---------------------------------- | ---------------------------------------------------------------- |
   | **💕 Supportive**        | Compassionate, reflective guidance | "It's completely understandable that you're feeling this way..." |
   | **📚 Direct**            | Concise, factual information       | "Here are three evidence-based strategies for..."                |
   | **💪🏻 Action-Oriented** | Practical steps and exercises      | "Try this 5-minute exercise: First, notice..."                     |
+ </p>
+<br>
 
-- **Advanced Customization**: adjust search depth (top-k results), LLM creativity (temperature), and choose between GPT models (gpt-4o-mini or gpt-3.5-turbo).
+- **Advanced Customization**: adjust **search depth** (top-k results), **LLM creativity** (temperature), and choose between **GPT models** (gpt-4o-mini or gpt-3.5-turbo).
 <p align="center">
   <img width="217" height="169" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-55-10" src="https://github.com/user-attachments/assets/ebd9d3ca-6707-4be5-96d3-85ffb87c8273" />
 </p>
+<br>
 
 - **Enhanced Retrieval**: optional query expansion and document re-ranking for better, more relevant results.
 <p align="center">
   <img width="190" height="94" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-57-17" src="https://github.com/user-attachments/assets/485ec704-6982-445a-acad-7985af7f2aa1" />
 </p>
+<br>
 
 - **Built-in Analytics**: Real-time feedback collection and monitoring dashboards to track usage and effectiveness.
 <p align="center">
@@ -82,6 +87,7 @@
   ```bash
   streamlit run streamlit_app.py
   ```
+<br>
 
 ## 🛥 Alternative: Docker Setup
 - Set up API key. Create a `.env` file in project root: 
@@ -213,6 +219,7 @@ selfcompassion-llm/
 <p align="center">
   <img width="574" height="734" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 15-05-29" src="https://github.com/user-attachments/assets/fd289e6b-2ff7-4a8b-bf81-9af05e5d28f9" />
 </p>
+<br>
 
 ---
 ## ✅ Evaluation Results
@@ -222,7 +229,6 @@ selfcompassion-llm/
   ```
 - App is deployed and running [here](https://selfcompassion.streamlit.app/). 
 - The **Self-Compassion RAG system** was evaluated on a golden dataset of 20 queries with labeled relevant documents. It tests the RAG system against the golden dataset.
-
 ---
 
 ### 💪🏻 Performance Metrics
@@ -233,6 +239,7 @@ selfcompassion-llm/
 | **Vector**       | 0.900    | 0.410 | 0.090        | 0.900     |
 | **TF-IDF**       | 0.900    | 0.410 | 0.090        | 0.900     |
 | **Hybrid**       | 0.950    | 0.520 | 0.095        | 0.950     |
+<br> 
 
 ## 🎯 LLM Evaluation Summary
 **Multiple prompt styles tested and compared:**
