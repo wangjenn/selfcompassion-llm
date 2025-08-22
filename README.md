@@ -29,10 +29,16 @@
     <img width="206" height="164" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-47-55" src="https://github.com/user-attachments/assets/53c2e092-2802-45c1-83bc-d765613a0c90" />
   </p>
 
-- **Personalized Experience**: select from 3 prompt styles based on your moods and needs-- 💕 Supportive, 📚 Direct, or 💪🏻 Action-Oriented!
+- **Personalized Experience (LLM Evaluation)**: select from 3 prompt styles based on your moods and needs-- 💕 **Supportive**, 📚 **Direct**, or 💪🏻 **Action-Oriented**!
   <p align="center">
     <img width="211" height="187" alt="ScreenFloat Shot of Streamlit on 2025-08-21 at 14-47-04" src="https://github.com/user-attachments/assets/8c315c1f-114e-4e9e-aaf8-7141eb2f7c50" />
 </p>
+
+  | Prompt Style             | Purpose                            | Example Response Tone                                            |
+  | ------------------------ | ---------------------------------- | ---------------------------------------------------------------- |
+  | **💕 Supportive**        | Compassionate, reflective guidance | "It's completely understandable that you're feeling this way..." |
+  | **📚 Direct**            | Concise, factual information       | "Here are three evidence-based strategies for..."                |
+  | **💪🏻 Action-Oriented** | Practical steps and exercises      | "Try this 5-minute exercise: First, notice..."                     |
 
 - **Advanced Customization**: adjust search depth (top-k results), LLM creativity (temperature), and choose between GPT models (gpt-4o-mini or gpt-3.5-turbo).
 <p align="center">
@@ -228,6 +234,16 @@ selfcompassion-llm/
 | **TF-IDF**       | 0.900    | 0.410 | 0.090        | 0.900     |
 | **Hybrid**       | 0.950    | 0.520 | 0.095        | 0.950     |
 
+## 🎯 LLM Evaluation Summary
+**Multiple prompt styles tested and compared:**
+- 💕 **Supportive**, 📚 **Direct**, 💪🏻 **Action-Oriented** prompts
+- Each optimized for different query types
+- User feedback collected to assess effectiveness
+
+**Multiple models evaluated:**  
+- gpt-4o-mini (primary) vs gpt-3.5-turbo
+- Performance tested across all retrieval methods
+  
 ---
 ### 💡 Key Findings
 - **BM25** consistently achieves perfect hit rate and recall in this dataset, with the best MRR (0.598), ranking relevant documents higher.
