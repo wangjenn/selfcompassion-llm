@@ -1,3 +1,6 @@
+# PDFs
+pdfs/
+
 # Environment variables
 .env
 .env.*
