@@ -277,12 +277,16 @@ selfcompassion-llm/
 ## 📘 Development Notes
 - Exploration notebooks are under `/notebooks/`.  
 - Embeddings (`embeddings.npy`, `id_index.json`) are **ignored** from git.  
-- Feedback data is stored locally (not shared).  
+- Feedback data is stored locally (not shared).
+  
+## 📄 Data Sources
+- All data sources are carefully curated from peer-reviewed research, legally purchased books (excerpts only, fair use), and publicly available expert materials (e.g., podcast transcripts).
+- Full PDF sources are maintained in a separate private repository for copyright compliance.
 
 ---
 ## 📝 Disclaimer
 - All responses are anonymous — nothing is saved, logged, or tracked by the app.
-- This app does not store, share, or distribute full PDFs or copyrighted materials. All content is based on short excerpts, summaries, or personal notes from books I’ve legally purchased, or on publicly available sources such as peer-reviewed research papers and podcast transcripts.
+- This app does not store, share, or distribute full PDFs or copyrighted materials. All content is based on short excerpts, summaries, or personal notes, either from books I’ve legally purchased or from publily available sources (e.g., peer-reviewed articles, podcast transcripts).
 - This app is intended for educational and personal use only. It is not intended to diagnose, treat, cure, or prevent any mental health condition. If you are in emotional distress or experiencing a crisis, please contact a licensed mental health professional.
 ---
 
