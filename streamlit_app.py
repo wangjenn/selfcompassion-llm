@@ -36,13 +36,13 @@ if "last_event_id" not in st.session_state:
 
 # ───────────────────────────────────────────────────────────────────────────────
 # STREAMLIT CONFIG ───────────────────────────────────────────────────────────────────────────────
-st.set_page_config(page_title="Self-Compassion RAG (MVP)", page_icon="💬")
+st.set_page_config(page_title="Self-Compassion AI™ for Neurodiverse Brains", page_icon="🧠")
 
 # Show the Labubu image
 st.image("images/labubu-selfcompassion.png", width=254)
 
-st.title("💬 Self-Compassion RAG — MVP")
-st.caption("Share any thoughts, emotions, or questions you may have 💕.")
+st.title("🧠💕 Self-Compassion AI™ for Neurodiverse Brains")
+st.caption("What’s on your mind? Share a thought, feeling, or question 💕.")
 
 
 # ---------- Load env / OpenAI ----------
