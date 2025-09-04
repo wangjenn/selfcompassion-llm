@@ -1,4 +1,4 @@
-# Self-Compassion LLM for Neurodiverse Brains ❥ 🧠
+# Self-Compassion AI™ LLM for Neurodiverse Brains ❥ 🧠
 
 <p align="center">
 <img width="254" height="276" alt="labubu-selfcompassion" src="https://github.com/user-attachments/assets/fc95f795-bd29-435e-81c3-854555fd22d3" />
