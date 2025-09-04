@@ -326,7 +326,7 @@ with st.sidebar:
 # Larger, bolded caption for question input
 st.markdown("<span style='font-size:1.2em; font-weight:bold;'>Ask a question or share any thoughts</span>", unsafe_allow_html=True)
 query = st.text_input(
-    "Ask a question or share any thoughts",  # Non-empty label for accessibility
+    "Ask a question/share your thoughts:",  # Non-empty label for accessibility
     placeholder="e.g., I'm feeling really anxious right now",
     label_visibility="collapsed"
 )
