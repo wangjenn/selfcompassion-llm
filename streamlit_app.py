@@ -54,7 +54,8 @@ if not OPENAI_API_KEY:
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # ---------- Data paths ----------
-DOCS_JSON = "processed_documents_clean.json"
+DOCS_JSON = "processed_documents_clean1.json"  # Added more sources
+# DOCS_JSON = "processed_documents_clean.json" # Original one
 EMB_PATH = "embeddings.npy"
 IDX_PATH = "id_index.json"
 EMBED_MODEL = "text-embedding-3-small"
