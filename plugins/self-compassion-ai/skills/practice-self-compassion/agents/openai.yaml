@@ -1,0 +1,4 @@
+interface:
+  display_name: "Practice Self-Compassion"
+  short_description: "Evidence-grounded self-compassion support"
+  default_prompt: "Use $practice-self-compassion to help me respond to this situation with grounded self-compassion."

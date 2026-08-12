@@ -89,6 +89,29 @@
   ```
 <br>
 
+## 💬 Private ChatGPT integration
+
+The repository includes a read-only Model Context Protocol (MCP) server that
+lets ChatGPT search the same research corpus. ChatGPT handles the conversation;
+the server returns grounded passages, source names, page ranges, and retrieval
+scores.
+
+```bash
+pip install -r requirements-mcp.txt
+python mcp_server.py
+```
+
+The streamable HTTP endpoint runs at `http://localhost:8000/mcp`. Its tool is
+`search_self_compassion_evidence`. BM25 is the default because it is fully local
+and performed best in the current golden-set evaluation. Vector and hybrid
+retrieval remain available when `embeddings.npy`, `id_index.json`, and
+`OPENAI_API_KEY` are configured.
+
+The private plugin package is under `plugins/self-compassion-ai/`. For access
+from ChatGPT on multiple devices, deploy `Dockerfile.mcp` to an HTTPS host and
+replace the local MCP URL during private plugin registration.
+
+
 ## 🛥 Alternative: Docker Setup
 - Set up API key. Create a `.env` file in project root: 
   ```bash
@@ -294,4 +317,3 @@ selfcompassion-llm/
 ![selfcompassion](https://github.com/user-attachments/assets/6009a37a-be39-48d8-b736-ab19b9b6bcd7)
 
 - This project is licensed under the [MIT License](./license)
-

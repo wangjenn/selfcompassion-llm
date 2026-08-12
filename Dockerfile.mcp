@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements-mcp.txt ./
+RUN pip install --no-cache-dir -r requirements-mcp.txt
+
+COPY mcp_server.py selfcompassion_retrieval.py processed_documents_clean1.json ./
+
+RUN useradd --create-home appuser && chown -R appuser:appuser /app
+USER appuser
+
+ENV MCP_HOST=0.0.0.0
+ENV PORT=8000
+EXPOSE 8000
+
+CMD ["python", "mcp_server.py"]

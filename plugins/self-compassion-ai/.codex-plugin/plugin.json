@@ -1,0 +1,29 @@
+{
+  "name": "self-compassion-ai",
+  "version": "0.1.0",
+  "description": "Research-grounded self-compassion support for neurodiverse brains.",
+  "author": {
+    "name": "Jennifer M. Wang",
+    "url": "https://github.com/wangjenn"
+  },
+  "homepage": "https://selfcompassion.streamlit.app/",
+  "repository": "https://github.com/wangjenn/selfcompassion-llm",
+  "license": "MIT",
+  "keywords": ["self-compassion", "neurodiversity", "rag", "mental-wellbeing"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Self-Compassion AI",
+    "shortDescription": "Evidence-grounded support for neurodiverse brains.",
+    "longDescription": "Uses Jennifer M. Wang's Self-Compassion AI research corpus and retrieval system to ground compassionate, practical responses.",
+    "developerName": "Jennifer M. Wang",
+    "category": "Lifestyle",
+    "capabilities": ["Search", "Read"],
+    "websiteURL": "https://selfcompassion.streamlit.app/",
+    "defaultPrompt": [
+      "Help me respond to this situation with self-compassion.",
+      "I'm stuck in self-criticism. Ground me in the research.",
+      "Give me one small self-compassionate next step."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}
